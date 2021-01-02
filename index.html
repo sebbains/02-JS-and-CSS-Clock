@@ -64,12 +64,30 @@
       top: 50%;
       transform-origin: 100%; /*moves pivot origin to furthest right hand side*/
       transform:rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0, 2.38, 0.58, 1);
     }
 
   </style>
 
   <script>
+    const secondHand = document.querySelector(".second-hand");
+    const minuteHand = document.querySelector(".min-hand");
+    const hourHand = document.querySelector(".hour-hand");
 
+    function setDate(){
+      const now = new Date();
+      const seconds = now.getSeconds();
+      const minutes = now.getMinutes();
+      const hours = now.getHours();
+      const secDegs = ((seconds / 60) * 360) + 90;
+      const minDegs = ((minutes /60) * 360) + 90;
+      const hourDegs = ((hours /12) * 360) + 90;
+      secondHand.style.transform = `rotate(${secDegs}deg)`;
+      minuteHand.style.transform = `rotate(${minDegs}deg)`;
+      hourHand.style.transform = `rotate(${hourDegs}deg)`;
+    }
+    setInterval(setDate, 1000);
 
   </script>
 </body>
